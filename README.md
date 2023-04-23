@@ -41,7 +41,7 @@ The `@UseBorder()` decorator will also decorate your controller method with matc
 ### Example
 
 ```ts
-import { Body, Controller, Param, Query } from "@nestjs/common";
+import { Body, Controller, Param, Post, Query } from "@nestjs/common";
 import { z } from "zod";
 import {
   createBorder,
@@ -49,6 +49,7 @@ import {
   InferParams,
   InferQuery,
   InferResponse,
+  UseBorder,
 } from "@qte/nest-border-patrol";
 
 // Create a border configuration
@@ -93,3 +94,9 @@ export class SampleController {
   }
 }
 ```
+
+## Potential roadmap
+
+- Validating headers
+- OpenAPI examples
+-
