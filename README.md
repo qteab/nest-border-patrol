@@ -98,5 +98,5 @@ export class SampleController {
 ## Potential roadmap
 
 - Validating headers
-- OpenAPI examples
--
+- OpenAPI example values
+- Test typings using `// @ts-expect-error`
