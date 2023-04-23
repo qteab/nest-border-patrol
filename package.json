@@ -1,13 +1,13 @@
 {
   "name": "@qte/nest-border-patrol",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "./dist/index",
   "files": [
     "./dist"
   ],
   "scripts": {
-    "build": "tsc && swc ./src -d dist",
+    "build": "tsc --project tsconfig.build.json && swc ./src -d dist",
     "test:watch": "jest --watch"
   },
   "keywords": [],

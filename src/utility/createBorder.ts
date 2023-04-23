@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { BorderConfiguration } from "~/types";
+import { BorderConfiguration } from "../types/BorderConfiguration";
 
 export const createBorder = <
   TBody extends z.ZodSchema | undefined,
