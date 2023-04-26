@@ -10,7 +10,7 @@ const validParams = {
   someParam: "correct",
 };
 
-describe("GET /v1/games", () => {
+describe("Validation", () => {
   let app: INestApplication;
 
   beforeEach(async () => {

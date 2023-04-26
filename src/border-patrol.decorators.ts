@@ -45,7 +45,7 @@ export const UseBorder = <
       swaggerDecorators.push(
         ApiQuery({
           name: key,
-          required: !!schema.isOptional(),
+          required: !schema.isOptional(),
           schema: generatedSchema as any,
         })
       );
