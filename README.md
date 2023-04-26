@@ -97,6 +97,9 @@ export class SampleController {
 
 ## Potential roadmap
 
-- Validating headers
+- Validating headers incoming and outgoing
 - OpenAPI example values
 - Test typings using `// @ts-expect-error`
+- Validate query params as an object (OpenAPI issues)
+- Validate unnamed query params
+-
