@@ -1,6 +1,6 @@
 {
   "name": "@qte/nest-border-patrol",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "./dist/index",
   "files": [
