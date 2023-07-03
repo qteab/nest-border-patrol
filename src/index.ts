@@ -6,3 +6,4 @@ export type {
 } from "./types";
 export { createBorder } from "./utility";
 export { UseBorder } from "./border-patrol.decorators";
+export { extendApi as extendBorder } from "@anatine/zod-openapi";
