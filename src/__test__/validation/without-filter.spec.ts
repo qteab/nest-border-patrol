@@ -2,6 +2,7 @@ import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import request from "supertest";
 import { SampleController } from "./validation.controller";
+import { BorderPatrolModule } from "~/border-patrol.module";
 
 const validBody = {
   name: "hihi",
@@ -10,12 +11,18 @@ const validParams = {
   someParam: "correct",
 };
 
-describe("Validation", () => {
+describe("Validation without filter", () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [],
+      imports: [
+        BorderPatrolModule.forRootAsync({
+          useFactory: () => ({
+            useDefaultFilter: false,
+          }),
+        }),
+      ],
       controllers: [SampleController],
     }).compile();
 
@@ -51,7 +58,7 @@ describe("Validation", () => {
     expect(response.status).toBe(201);
   });
 
-  it("responds with 400 when invalid params", async () => {
+  it("responds with 500 when invalid params", async () => {
     const response = await request(app.getHttpServer())
       .post(
         `/test/${validParams.someParam}${new URLSearchParams({
@@ -59,17 +66,17 @@ describe("Validation", () => {
         })}`
       )
       .send(validBody);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
 
-  it("responds with 400 when invalid query params", async () => {
+  it("responds with 500 when invalid query params", async () => {
     const response = await request(app.getHttpServer())
       .post(`/test/${validParams.someParam}`)
       .send(validBody);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
 
-  it("responds with 400 when body is invalid", async () => {
+  it("responds with 500 when body is invalid", async () => {
     const response = await request(app.getHttpServer())
       .post(
         `/test/${validParams.someParam}${new URLSearchParams({
@@ -77,7 +84,7 @@ describe("Validation", () => {
         })}`
       )
       .send({});
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
   });
 
   it("response is stripped", async () => {

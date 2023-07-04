@@ -8,6 +8,7 @@ import {
 } from "@nestjs/common";
 import { z, ZodError } from "zod";
 import { BorderConfiguration } from "./types";
+import { BorderPatrolException } from "./border-patrol.exception";
 
 @Injectable()
 export class BorderPatrolPipe<
@@ -95,25 +96,31 @@ export class BorderPatrolPipe<
       }
     } catch (err) {
       if (err instanceof ZodError) {
-        throw new HttpException(
-          {
-            message: `Error in ${metadata.type}${
-              metadata.data ? `.${metadata.data}` : ""
-            }`,
-            formattedError: err.format(),
-            error: err,
-          },
-          HttpStatus.BAD_REQUEST,
-          {
-            cause: err,
-          }
-        );
+        let where: ConstructorParameters<typeof BorderPatrolException>[0];
+        if (metadata.type === "custom") {
+          throw err;
+        }
+        if (metadata.type === "param") {
+          where = "params";
+        } else {
+          where = metadata.type;
+        }
+        throw new BorderPatrolException(where, err);
+        // throw new BorderPatrolException(
+        //   {
+        //     message: `Error in ${metadata.type}${
+        //       metadata.data ? `.${metadata.data}` : ""
+        //     }`,
+        //     formattedError: err.format(),
+        //     error: err,
+        //   },
+        //   HttpStatus.BAD_REQUEST,
+        //   {
+        //     cause: err,
+        //   }
+        // );
       }
-      throw new HttpException(
-        "Could not validate request",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-        { cause: err instanceof Error ? err : undefined }
-      );
+      throw err;
     }
   }
 }

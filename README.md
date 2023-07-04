@@ -25,6 +25,22 @@ You also will need the following dependencies if you haven't installed them alre
 - rxjs
 - zod
 
+Import the `BorderPatrolModule` to your root module.
+
+```typescript
+import { BorderPatrolModule } from "@qte/nest-border-patrol";
+
+@Module({
+  imports: [
+    BorderPatrolModule.forRootAsync({
+      inject: [],
+      useFactory: () => ({}),
+    }),
+  ],
+})
+class AppModule {}
+```
+
 ## Usage
 
 Create a `BorderConfiguration` using the `createBorder()` function. This function requires one argument with the following optional properties.
@@ -94,6 +110,10 @@ export class SampleController {
   }
 }
 ```
+
+## Versioning
+
+Until the package reaches 1.0.0 all updates may be breaking.
 
 ## Potential roadmap
 

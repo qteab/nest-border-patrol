@@ -6,9 +6,10 @@ import {
   Injectable,
   NestInterceptor,
 } from "@nestjs/common";
-import { z } from "zod";
+import { ZodError, z } from "zod";
 import { catchError, map, Observable, throwError } from "rxjs";
 import { BorderConfiguration } from "./types";
+import { BorderPatrolException } from "./border-patrol.exception";
 
 @Injectable()
 export class BorderPatrolInterceptor<
@@ -41,12 +42,16 @@ export class BorderPatrolInterceptor<
         try {
           parsedResponse = this.config.response.parse(data);
         } catch (err) {
-          console.log("ERROR", JSON.stringify(err));
-          throw new HttpException(
-            { error: "Could not validate response" },
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            { cause: err instanceof Error ? err : undefined }
-          );
+          if (err instanceof ZodError) {
+            throw new BorderPatrolException(
+              "response",
+              err
+              // { error: "Could not validate response" },
+              // HttpStatus.INTERNAL_SERVER_ERROR,
+              // { cause: err instanceof Error ? err : undefined }
+            );
+          }
+          throw err;
         }
         return parsedResponse;
       })

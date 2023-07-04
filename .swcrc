@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/swcrc",
-  "exclude": ["src/test"],
+  "exclude": ["__test__"],
   "sourceMaps": true,
   "module": {
     "type": "commonjs",
