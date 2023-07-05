@@ -27,7 +27,9 @@ export class BorderPatrolExceptionFilter
     response.status(HttpStatus.BAD_REQUEST).json({
       message: `Bad request, invalid ${exception.where}`,
       status: HttpStatus.BAD_REQUEST,
-      errors: exception.zodError.format(),
+      errors: exception.key
+        ? { [exception.key]: exception.zodError.format() }
+        : exception.zodError.format(),
       timestamp: new Date().toISOString(),
     });
   }

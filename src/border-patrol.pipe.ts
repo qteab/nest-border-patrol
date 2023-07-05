@@ -10,6 +10,12 @@ import { z, ZodError } from "zod";
 import { BorderConfiguration } from "./types";
 import { BorderPatrolException } from "./border-patrol.exception";
 
+class QueryOrParamsException extends Error {
+  constructor(public readonly zodError: ZodError, public readonly key: string) {
+    super();
+  }
+}
+
 @Injectable()
 export class BorderPatrolPipe<
   TBody extends z.ZodSchema | undefined,
@@ -45,7 +51,14 @@ export class BorderPatrolPipe<
             if (!schema) {
               return undefined;
             }
-            return schema.parse(value);
+            try {
+              return schema.parse(value);
+            } catch (e) {
+              if (e instanceof ZodError) {
+                throw new QueryOrParamsException(e, metadata.data);
+              }
+              throw e;
+            }
           }
 
           const parsedValue: any = {};
@@ -59,7 +72,14 @@ export class BorderPatrolPipe<
               }
             )
             .forEach(([key, schema]) => {
-              parsedValue[key] = schema.parse(value[key]);
+              try {
+                parsedValue[key] = schema.parse(value[key]);
+              } catch (e) {
+                if (e instanceof ZodError) {
+                  throw new QueryOrParamsException(e, key);
+                }
+                throw e;
+              }
             });
           return parsedValue;
         }
@@ -72,7 +92,14 @@ export class BorderPatrolPipe<
             if (!schema) {
               return undefined;
             }
-            return schema.parse(value);
+            try {
+              return schema.parse(value);
+            } catch (e) {
+              if (e instanceof ZodError) {
+                throw new QueryOrParamsException(e, metadata.data);
+              }
+              throw e;
+            }
           }
           const parsedValue: any = {};
           Object.entries(this.config.params)
@@ -85,7 +112,14 @@ export class BorderPatrolPipe<
               }
             )
             .forEach(([key, schema]) => {
-              parsedValue[key] = schema.parse(value[key]);
+              try {
+                parsedValue[key] = schema.parse(value[key]);
+              } catch (e) {
+                if (e instanceof ZodError) {
+                  throw new QueryOrParamsException(e, key);
+                }
+                throw e;
+              }
             });
           return parsedValue;
         }
@@ -95,30 +129,21 @@ export class BorderPatrolPipe<
           throw new NotImplementedException("Unexpected metadata.type");
       }
     } catch (err) {
+      let where: ConstructorParameters<typeof BorderPatrolException>[0];
+      if (metadata.type === "custom") {
+        throw err;
+      }
+      if (metadata.type === "param") {
+        where = "params";
+      } else {
+        where = metadata.type;
+      }
+
       if (err instanceof ZodError) {
-        let where: ConstructorParameters<typeof BorderPatrolException>[0];
-        if (metadata.type === "custom") {
-          throw err;
-        }
-        if (metadata.type === "param") {
-          where = "params";
-        } else {
-          where = metadata.type;
-        }
         throw new BorderPatrolException(where, err);
-        // throw new BorderPatrolException(
-        //   {
-        //     message: `Error in ${metadata.type}${
-        //       metadata.data ? `.${metadata.data}` : ""
-        //     }`,
-        //     formattedError: err.format(),
-        //     error: err,
-        //   },
-        //   HttpStatus.BAD_REQUEST,
-        //   {
-        //     cause: err,
-        //   }
-        // );
+      }
+      if (err instanceof QueryOrParamsException) {
+        throw new BorderPatrolException(where, err.zodError, err.key);
       }
       throw err;
     }
