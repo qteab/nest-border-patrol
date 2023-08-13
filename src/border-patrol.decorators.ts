@@ -59,5 +59,8 @@ export const UseBorder = <
   );
 };
 
+export const UseWsBorder = () => {
+  return applyDecorators(UsePipes(new BorderPatrolPipe({} as any)));
+};
 //
 //

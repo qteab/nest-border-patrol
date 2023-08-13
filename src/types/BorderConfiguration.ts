@@ -55,3 +55,16 @@ export type InferResponse<TConfiguration> =
       ? any
       : never
     : never;
+
+export type InferMessageBody<TConfiguration> = InferBody<TConfiguration>;
+
+export type InferFromBorder<
+  TConfiguration,
+  TPath = "body" | "messageBody" | "params" | "query" | "response"
+> = TPath extends "params"
+  ? InferParams<TConfiguration>
+  : TPath extends "query"
+  ? InferQuery<TConfiguration>
+  : TPath extends "response"
+  ? InferResponse<TConfiguration>
+  : InferBody<TConfiguration>;
