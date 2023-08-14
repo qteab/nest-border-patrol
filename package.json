@@ -45,7 +45,7 @@
     "zod": "^3.21.4"
   },
   "dependencies": {
-    "@anatine/zod-openapi": "^1.12.0",
+    "@anatine/zod-openapi": "^2.1.0",
     "zod-to-ts": "^1.1.4"
   },
   "publishConfig": {

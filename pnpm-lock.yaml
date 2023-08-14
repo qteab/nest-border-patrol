@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@anatine/zod-openapi':
-    specifier: ^1.12.0
-    version: 1.12.0(openapi3-ts@3.2.0)(zod@3.21.4)
+    specifier: ^2.1.0
+    version: 2.1.0(openapi3-ts@4.1.2)(zod@3.21.4)
   zod-to-ts:
     specifier: ^1.1.4
     version: 1.1.4(typescript@5.0.4)(zod@3.21.4)
@@ -83,14 +83,14 @@ packages:
       '@jridgewell/trace-mapping': 0.3.18
     dev: true
 
-  /@anatine/zod-openapi@1.12.0(openapi3-ts@3.2.0)(zod@3.21.4):
-    resolution: {integrity: sha512-ZdkmQFXdc2us0nTBPWiJ3joHxsZoc5G79hKB8QzUuo73zp2A4t4TlBmOjS+hJfMnTBATfJutrlN/wK4DUq6ztg==}
+  /@anatine/zod-openapi@2.1.0(openapi3-ts@4.1.2)(zod@3.21.4):
+    resolution: {integrity: sha512-SQML15KBRP8FyV7djAEZiv3iCA0ve++WZ6wW3OBqrABwxszoOcXbtQs27eM13I7FN8GD/9NBSmoh1pgI+fM75A==}
     peerDependencies:
-      openapi3-ts: ^2.0.0 || ^3.0.0
+      openapi3-ts: ^4.1.2
       zod: ^3.20.0
     dependencies:
-      openapi3-ts: 3.2.0
-      ts-deepmerge: 4.0.0
+      openapi3-ts: 4.1.2
+      ts-deepmerge: 6.2.0
       zod: 3.21.4
     dev: false
 
@@ -3187,8 +3187,8 @@ packages:
       mimic-fn: 2.1.0
     dev: true
 
-  /openapi3-ts@3.2.0:
-    resolution: {integrity: sha512-/ykNWRV5Qs0Nwq7Pc0nJ78fgILvOT/60OxEmB3v7yQ8a8Bwcm43D4diaYazG/KBn6czA+52XYy931WFLMCUeSg==}
+  /openapi3-ts@4.1.2:
+    resolution: {integrity: sha512-B7gOkwsYMZO7BZXwJzXCuVagym2xhqsrilVvV0dnq2Di4+iLUXKVX9gOK23ZqaAHZOwABXN0QTdW8QnkUTX6DA==}
     dependencies:
       yaml: 2.3.1
     dev: false
@@ -3847,9 +3847,9 @@ packages:
       escape-string-regexp: 5.0.0
     dev: true
 
-  /ts-deepmerge@4.0.0:
-    resolution: {integrity: sha512-IrjjAwfM/J6ajWv5wDRZBdpVaTmuONJN1vC85mXlWVPXKelouLFiqsjR7m0h245qY6zZEtcDtcOTc4Rozgg1TQ==}
-    engines: {node: '>=14'}
+  /ts-deepmerge@6.2.0:
+    resolution: {integrity: sha512-2qxI/FZVDPbzh63GwWIZYE7daWKtwXZYuyc8YNq0iTmMUwn4mL0jRLsp6hfFlgbdRSR4x2ppe+E86FnvEpN7Nw==}
+    engines: {node: '>=14.13.1'}
     dev: false
 
   /tslib@2.5.0:

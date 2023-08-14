@@ -6,6 +6,11 @@ export const Border = createBorder({
   query: {
     required: z.string(),
     optional: z.string().optional(),
+    nullable: z
+      .object({
+        prop: z.literal("value"),
+      })
+      .nullable(),
   },
 });
 
