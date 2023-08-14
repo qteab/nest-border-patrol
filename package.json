@@ -29,6 +29,7 @@
     "@types/supertest": "^2.0.12",
     "@types/ws": "^8.5.5",
     "jest": "^29.5.0",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "supertest": "^6.3.3",
     "typescript": "^5.0.4",
@@ -39,11 +40,13 @@
     "@nestjs/common": "9.x || 10.x",
     "@nestjs/core": "9.x || 10.x",
     "@nestjs/swagger": "6.x || 7.x",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "zod": "^3.21.4"
   },
   "dependencies": {
-    "@anatine/zod-openapi": "^1.12.0"
+    "@anatine/zod-openapi": "^1.12.0",
+    "zod-to-ts": "^1.1.4"
   },
   "publishConfig": {
     "access": "public"

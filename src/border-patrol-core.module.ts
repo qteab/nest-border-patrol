@@ -1,8 +1,14 @@
 import { DynamicModule, FactoryProvider, Global, Module } from "@nestjs/common";
-import { APP_FILTER } from "@nestjs/core";
+import {
+  APP_FILTER,
+  DiscoveryModule,
+  DiscoveryService,
+  Reflector,
+} from "@nestjs/core";
 import { ModuleAsyncOptions, ModuleOptions } from "./types";
 import { MODULE_OPTIONS_KEY } from "./border-patrol.constants";
 import { BorderPatrolExceptionFilter } from "./border-patrol.filter";
+import { BorderPatrolExplorerService } from "./border-patrol-explorer.service";
 
 @Global()
 @Module({})
@@ -29,9 +35,10 @@ export class BorderPatrolCoreModule {
     };
 
     return {
+      imports: [DiscoveryModule],
       exports: [],
       module: BorderPatrolCoreModule,
-      providers: [optionsProvider, filterProvider],
+      providers: [optionsProvider, filterProvider, BorderPatrolExplorerService],
     };
   }
 }

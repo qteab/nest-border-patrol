@@ -34,10 +34,6 @@ export class EventsGateway {
   @SubscribeMessage("events")
   @UseBorder(border)
   onEvent(@MessageBody() data: InferFromBorder<typeof border, "messageBody">) {
-    // console.log("In da shit", data);
-    // return from([1, 2, 3]).pipe(
-    //   map((item) => ({ event: "events", data: item }))
-    // );
     recieverMock(data);
   }
 }

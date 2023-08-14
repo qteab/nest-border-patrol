@@ -1,10 +1,16 @@
-import { applyDecorators, UseInterceptors, UsePipes } from "@nestjs/common";
+import {
+  applyDecorators,
+  SetMetadata,
+  UseInterceptors,
+  UsePipes,
+} from "@nestjs/common";
 import { generateSchema } from "@anatine/zod-openapi";
 import { ApiBody, ApiOkResponse, ApiParam, ApiQuery } from "@nestjs/swagger";
 import { BorderConfiguration } from "./types";
 import { z } from "zod";
 import { BorderPatrolInterceptor } from "./border-patrol.interceptor";
 import { BorderPatrolPipe } from "./border-patrol.pipe";
+import { BORDER_CONFIGURATION_KEY } from "./border-patrol.constants";
 
 export const UseBorder = <
   TBody extends z.ZodSchema | undefined,
@@ -55,6 +61,7 @@ export const UseBorder = <
   return applyDecorators(
     UseInterceptors(new BorderPatrolInterceptor(config)),
     UsePipes(new BorderPatrolPipe(config)),
+    SetMetadata(BORDER_CONFIGURATION_KEY, config),
     ...swaggerDecorators
   );
 };

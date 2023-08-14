@@ -4,6 +4,9 @@ dependencies:
   '@anatine/zod-openapi':
     specifier: ^1.12.0
     version: 1.12.0(openapi3-ts@3.2.0)(zod@3.21.4)
+  zod-to-ts:
+    specifier: ^1.1.4
+    version: 1.1.4(typescript@5.0.4)(zod@3.21.4)
 
 devDependencies:
   '@nestjs/common':
@@ -51,6 +54,9 @@ devDependencies:
   jest:
     specifier: ^29.5.0
     version: 29.5.0
+  reflect-metadata:
+    specifier: ^0.1.13
+    version: 0.1.13
   rxjs:
     specifier: ^7.8.0
     version: 7.8.0
@@ -3884,7 +3890,6 @@ packages:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
     hasBin: true
-    dev: true
 
   /uid@2.0.2:
     resolution: {integrity: sha512-u3xV3X7uzvi5b1MncmZo3i2Aw222Zk1keqLA1YkHldREkAhAqi65wuPfe7lHx8H/Wzy+8CE7S7uS3jekIM5s8g==}
@@ -4047,6 +4052,16 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod-to-ts@1.1.4(typescript@5.0.4)(zod@3.21.4):
+    resolution: {integrity: sha512-jsCg+pTNxLAdJOfW4ul+SpechdGYEJPPnssSbqWdR2LSIkotT22k+UvqPb1nEHwe/YbEcbUOlZUfGM0npgR+Jg==}
+    peerDependencies:
+      typescript: ^4.9.4 || ^5.0.2
+      zod: ^3
+    dependencies:
+      typescript: 5.0.4
+      zod: 3.21.4
+    dev: false
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
