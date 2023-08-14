@@ -17,7 +17,7 @@ import { InferFromBorder } from "~/types";
 
 jest.mock("node:fs");
 
-const PORT = 9000;
+const PORT = 9001;
 
 const border = createWsBorder(
   z.object({
