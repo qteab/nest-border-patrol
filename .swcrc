@@ -4,8 +4,7 @@
   "sourceMaps": true,
   "module": {
     "type": "commonjs",
-    "strict": true,
-    "ignoreDynamic": true
+    "strict": true
   },
   "jsc": {
     "target": "es2022",
