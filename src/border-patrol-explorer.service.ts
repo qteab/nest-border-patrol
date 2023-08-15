@@ -2,11 +2,6 @@ import { Injectable, Logger, OnModuleInit } from "@nestjs/common";
 import { DiscoveryService, MetadataScanner, Reflector } from "@nestjs/core";
 import { printNode, zodToTs } from "zod-to-ts";
 import path from "node:path";
-import {
-  GATEWAY_METADATA,
-  MESSAGE_MAPPING_METADATA,
-  MESSAGE_METADATA,
-} from "@nestjs/websockets/constants";
 import { BORDER_CONFIGURATION_KEY } from "./border-patrol.constants";
 import fs from "node:fs/promises";
 
@@ -25,6 +20,20 @@ export class BorderPatrolExplorerService implements OnModuleInit {
       return;
     }
 
+    const wsPackageConstants = await import("@nestjs/websockets/constants")
+      .then((mod) => {
+        return {
+          GATEWAY_METADATA: mod.GATEWAY_METADATA,
+          MESSAGE_MAPPING_METADATA: mod.MESSAGE_MAPPING_METADATA,
+          MESSAGE_METADATA: mod.MESSAGE_METADATA,
+        };
+      })
+      .catch((e) => null);
+
+    if (!wsPackageConstants) {
+      throw new Error("@nestjs/websockets not installed");
+    }
+
     const outPath = path.join(process.cwd(), outEnv);
     if (path.extname(outPath) !== ".ts") {
       throw new Error("Path must be a .ts file");
@@ -35,7 +44,10 @@ export class BorderPatrolExplorerService implements OnModuleInit {
       .filter(
         (wrapper) =>
           wrapper.metatype &&
-          this.reflector.get(GATEWAY_METADATA, wrapper.metatype)
+          this.reflector.get(
+            wsPackageConstants.GATEWAY_METADATA,
+            wrapper.metatype
+          )
       );
 
     const gatewayHandlers = gateways
@@ -47,14 +59,17 @@ export class BorderPatrolExplorerService implements OnModuleInit {
         return methodNames.map((methodName) => {
           const method = instancePrototype[methodName];
           const isMessageMapping = Reflect.getMetadata(
-            MESSAGE_MAPPING_METADATA,
+            wsPackageConstants.MESSAGE_MAPPING_METADATA,
             method
           );
           if (!isMessageMapping) {
             return null;
           }
 
-          const event = Reflect.getMetadata(MESSAGE_METADATA, method) as string;
+          const event = Reflect.getMetadata(
+            wsPackageConstants.MESSAGE_METADATA,
+            method
+          ) as string;
           const configuration = Reflect.getMetadata(
             BORDER_CONFIGURATION_KEY,
             method

@@ -1,6 +1,6 @@
 {
   "name": "@qte/nest-border-patrol",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "main": "./dist/index",
   "files": [
@@ -40,6 +40,7 @@
     "@nestjs/common": "9.x || 10.x",
     "@nestjs/core": "9.x || 10.x",
     "@nestjs/swagger": "6.x || 7.x",
+    "@nestjs/websockets": "9.x || 10.x",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "zod": "^3.21.4"
@@ -47,6 +48,11 @@
   "dependencies": {
     "@anatine/zod-openapi": "^2.1.0",
     "zod-to-ts": "^1.1.4"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/websockets": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"
