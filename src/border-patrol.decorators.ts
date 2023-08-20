@@ -5,7 +5,7 @@ import {
   UsePipes,
 } from "@nestjs/common";
 import { generateSchema } from "@anatine/zod-openapi";
-import { ApiBody, ApiOkResponse, ApiParam, ApiQuery, ApiResponse } from "@nestjs/swagger";
+import { ApiBody, ApiOkResponse, ApiOperation, ApiOperationOptions, ApiParam, ApiQuery, ApiResponse } from "@nestjs/swagger";
 import { ApiResponseType, BorderConfiguration } from "./types";
 import { z } from "zod";
 import { BorderPatrolInterceptor } from "./border-patrol.interceptor";
@@ -17,9 +17,10 @@ export const UseBorder = <
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends ApiResponseType | undefined
+  TResponse extends ApiResponseType | undefined,
+  TMetadata extends ApiOperationOptions | undefined
 >(
-  config: BorderConfiguration<TBody, TQuery, TParams, TResponse>
+  config: BorderConfiguration<TBody, TQuery, TParams, TResponse, TMetadata>
 ) => {
   const swaggerDecorators: MethodDecorator[] = [];
 
@@ -67,6 +68,9 @@ export const UseBorder = <
         })
       );
     });
+  }
+  if (config.meta) {
+    swaggerDecorators.push(ApiOperation(config.meta));
   }
 
   return applyDecorators(

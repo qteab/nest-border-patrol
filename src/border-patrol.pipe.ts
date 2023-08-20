@@ -9,6 +9,7 @@ import {
 import { z, ZodError } from "zod";
 import { ApiResponseType, BorderConfiguration } from "./types";
 import { BorderPatrolException } from "./border-patrol.exception";
+import { ApiOperationOptions } from "@nestjs/swagger";
 
 class QueryOrParamsException extends Error {
   constructor(public readonly zodError: ZodError, public readonly key: string) {
@@ -21,7 +22,8 @@ export class BorderPatrolPipe<
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends ApiResponseType | undefined
+  TResponse extends ApiResponseType | undefined,
+  TMetadata extends ApiOperationOptions | undefined
 > implements PipeTransform
 {
   constructor(
@@ -29,7 +31,8 @@ export class BorderPatrolPipe<
       TBody,
       TQuery,
       TParams,
-      TResponse
+      TResponse,
+      TMetadata
     >
   ) {}
 

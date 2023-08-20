@@ -8,13 +8,15 @@ import { Observable, map } from "rxjs";
 import { ZodError, z } from "zod";
 import { BorderPatrolException } from "./border-patrol.exception";
 import { ApiResponseType, BorderConfiguration } from "./types";
+import { ApiOperationOptions } from "@nestjs/swagger";
 
 @Injectable()
 export class BorderPatrolInterceptor<
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends ApiResponseType | undefined
+  TResponse extends ApiResponseType | undefined,
+  TMetadata extends ApiOperationOptions | undefined
 > implements NestInterceptor
 {
   constructor(
@@ -22,7 +24,8 @@ export class BorderPatrolInterceptor<
       TBody,
       TQuery,
       TParams,
-      TResponse
+      TResponse,
+      TMetadata
     >
   ) {}
 

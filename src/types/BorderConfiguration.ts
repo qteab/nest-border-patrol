@@ -1,3 +1,4 @@
+import { ApiOperationOptions } from "@nestjs/swagger";
 import { z } from "zod";
 
 export type ApiResponseType = Array<{
@@ -10,16 +11,18 @@ export type BorderConfiguration<
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends ApiResponseType | undefined
+  TResponse extends ApiResponseType | undefined,
+  TMetadata extends ApiOperationOptions | undefined
 > = {
   query: TQuery;
   params: TParams;
   body: TBody;
   responses: TResponse;
+  meta: TMetadata;
 };
 
 export type InferBody<TConfiguration> =
-  TConfiguration extends BorderConfiguration<infer TBody, any, any, any>
+  TConfiguration extends BorderConfiguration<infer TBody, any, any, any, any>
     ? TBody extends z.ZodSchema
       ? z.infer<TBody>
       : TBody extends undefined
@@ -28,7 +31,7 @@ export type InferBody<TConfiguration> =
     : never;
 
 export type InferQuery<TConfiguration> =
-  TConfiguration extends BorderConfiguration<any, infer TQuery, any, any>
+  TConfiguration extends BorderConfiguration<any, infer TQuery, any, any, any>
     ? TQuery extends Record<string, z.ZodSchema | undefined>
       ? {
           [K in keyof TQuery]: TQuery[K] extends z.ZodSchema
@@ -41,7 +44,7 @@ export type InferQuery<TConfiguration> =
     : never;
 
 export type InferParams<TConfiguration> =
-  TConfiguration extends BorderConfiguration<any, any, infer TParams, any>
+  TConfiguration extends BorderConfiguration<any, any, infer TParams, any, any>
     ? TParams extends Record<string, z.ZodSchema | undefined>
       ? {
           [K in keyof TParams]: TParams[K] extends z.ZodSchema
@@ -54,7 +57,7 @@ export type InferParams<TConfiguration> =
     : never;
 
 export type InferResponse<TConfiguration> =
-  TConfiguration extends BorderConfiguration<any, any, any, infer TResponse>
+  TConfiguration extends BorderConfiguration<any, any, any, infer TResponse, any>
     ? TResponse extends ApiResponseType
       ? TResponse[number] extends {
           body: z.ZodSchema;
