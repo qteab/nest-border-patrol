@@ -104,6 +104,5 @@ describe("Validation without filter", () => {
   it("responds with 500 when data is missing from response", async () => {
     const response = await request(app.getHttpServer()).get(`/test/`);
     expect(response.status).toBe(500);
-    console.log(response.body);
   });
 });

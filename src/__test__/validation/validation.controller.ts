@@ -23,7 +23,7 @@ export const PostBorder = createBorder({
   responses: [
     {
       name: "Some response",
-      status: 200,
+      status: 201,
       body: z.object({
         publicData: z.string(),
       }),

@@ -40,7 +40,8 @@ export class BorderPatrolInterceptor<
         try {
           const statusCode = context
             .switchToHttp()
-            .getResponse<Response>().status;
+            .getResponse()
+            .statusCode;
 
           if (!this.config.responses || this.config.responses.length === 0) {
             return data;

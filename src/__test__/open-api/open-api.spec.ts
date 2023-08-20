@@ -33,7 +33,6 @@ describe("Open API generation", () => {
     expect(true).toBe(true);
     const parameters = swaggerDocument.paths["/test"]?.get?.parameters;
 
-    console.log(parameters);
     if (!parameters) {
       throw new Error("Parameters not set");
     }
