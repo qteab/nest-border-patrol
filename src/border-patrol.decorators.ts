@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { generateSchema } from "@anatine/zod-openapi";
 import { ApiBody, ApiOkResponse, ApiParam, ApiQuery, ApiResponse } from "@nestjs/swagger";
-import { Banger, BorderConfiguration } from "./types";
+import { ApiResponseType, BorderConfiguration } from "./types";
 import { z } from "zod";
 import { BorderPatrolInterceptor } from "./border-patrol.interceptor";
 import { BorderPatrolPipe } from "./border-patrol.pipe";
@@ -17,7 +17,7 @@ export const UseBorder = <
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends Banger | undefined
+  TResponse extends ApiResponseType | undefined
 >(
   config: BorderConfiguration<TBody, TQuery, TParams, TResponse>
 ) => {

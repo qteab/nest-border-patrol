@@ -7,14 +7,14 @@ import {
 import { Observable, map } from "rxjs";
 import { ZodError, z } from "zod";
 import { BorderPatrolException } from "./border-patrol.exception";
-import { Banger, BorderConfiguration } from "./types";
+import { ApiResponseType, BorderConfiguration } from "./types";
 
 @Injectable()
 export class BorderPatrolInterceptor<
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends Banger | undefined
+  TResponse extends ApiResponseType | undefined
 > implements NestInterceptor
 {
   constructor(

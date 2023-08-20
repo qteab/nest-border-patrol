@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export type Banger = Array<{
+export type ApiResponseType = Array<{
   status: number;
   name: string;
   body: z.ZodSchema
@@ -10,7 +10,7 @@ export type BorderConfiguration<
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends Banger | undefined
+  TResponse extends ApiResponseType | undefined
 > = {
   query: TQuery;
   params: TParams;
@@ -55,7 +55,7 @@ export type InferParams<TConfiguration> =
 
 export type InferResponse<TConfiguration> =
   TConfiguration extends BorderConfiguration<any, any, any, infer TResponse>
-    ? TResponse extends Banger
+    ? TResponse extends ApiResponseType
       ? TResponse[number] extends {
           body: z.ZodSchema;
         }

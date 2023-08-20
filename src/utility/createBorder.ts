@@ -1,6 +1,6 @@
 import { z } from "zod";
 import {
-  Banger,
+  ApiResponseType,
   BorderConfiguration
 } from "../types/BorderConfiguration";
 
@@ -8,7 +8,7 @@ export const createBorder = <
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends Banger | undefined
+  TResponse extends ApiResponseType | undefined
 >({
   body,
   query,
