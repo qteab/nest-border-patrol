@@ -1,17 +1,17 @@
+import { createZodDto } from '@abitia/zod-dto';
+import { generateSchema } from "@anatine/zod-openapi";
 import {
   applyDecorators,
   SetMetadata,
   UseInterceptors,
   UsePipes,
 } from "@nestjs/common";
-import { generateSchema } from "@anatine/zod-openapi";
-import { ApiBody, ApiOkResponse, ApiOperation, ApiOperationOptions, ApiParam, ApiQuery, ApiResponse } from "@nestjs/swagger";
-import { ApiResponseType, BorderConfiguration } from "./types";
+import { ApiBody, ApiOperation, ApiOperationOptions, ApiParam, ApiQuery, ApiResponse } from "@nestjs/swagger";
 import { z } from "zod";
+import { BORDER_CONFIGURATION_KEY } from "./border-patrol.constants";
 import { BorderPatrolInterceptor } from "./border-patrol.interceptor";
 import { BorderPatrolPipe } from "./border-patrol.pipe";
-import { BORDER_CONFIGURATION_KEY } from "./border-patrol.constants";
-import { createZodDto } from '@abitia/zod-dto'
+import { ApiResponseType, BorderConfiguration } from "./types";
 
 export const UseBorder = <
   TBody extends z.ZodSchema | undefined,
@@ -27,15 +27,15 @@ export const UseBorder = <
   if (config.responses) {
     swaggerDecorators.push(...config.responses.map((response) => {
       if (!response.body) {
-        return ApiOkResponse({ status: response.status });
+        return ApiResponse({ status: response.status });
       }
 
-      const clazz = createZodDto(response.body);
-      Object.defineProperty(clazz, 'name', { value: response.name })
+      const dtoClass = createZodDto(response.body);
+      Object.defineProperty(dtoClass, 'name', { value: response.name })
 
       return ApiResponse({
         status: response.status,
-        type: clazz,
+        type: dtoClass,
       });
     }));
   }
