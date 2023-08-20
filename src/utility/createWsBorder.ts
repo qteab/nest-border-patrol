@@ -7,5 +7,5 @@ export const createWsBorder = <TBody extends z.ZodSchema>(
   body: schema,
   query: undefined,
   params: undefined,
-  response: undefined,
+  responses: undefined,
 });

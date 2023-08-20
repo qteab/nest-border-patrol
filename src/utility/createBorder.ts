@@ -1,24 +1,27 @@
 import { z } from "zod";
-import { BorderConfiguration } from "../types/BorderConfiguration";
+import {
+  Banger,
+  BorderConfiguration
+} from "../types/BorderConfiguration";
 
 export const createBorder = <
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends z.ZodSchema | undefined
+  TResponse extends Banger | undefined
 >({
   body,
   query,
   params,
-  response,
+  responses,
 }: {
   body?: TBody;
   query?: TQuery;
   params?: TParams;
-  response?: TResponse;
+  responses?: TResponse;
 }): BorderConfiguration<TBody, TQuery, TParams, TResponse> => ({
   body: body as TBody,
   query: query as TQuery,
   params: params as TParams,
-  response: response as TResponse,
+  responses: responses as TResponse,
 });

@@ -48,7 +48,10 @@ Create a `BorderConfiguration` using the `createBorder()` function. This functio
 - `body` - Any Zod schema
 - `params` - A string record of Zod schemas where the key is the name of your URL parameters
 - `query` - A string record of Zod schemas
-- `response` - Any zod schema
+- `responses` - Array of response objects with the following properties
+  - `name` - A name for the response (used for OpenAPI model)
+  - `status` - The HTTP status code
+  - `body` - A Zod schema for the response body (optional)
 
 To make use of the newly created `BorderConfiguration` you decorate your controller endpoint with the `@UseBorder()` decorator. This will in turn validate the incoming request and outgoing response with the supplied schemas in the `BorderConfiguration`.
 
@@ -79,9 +82,26 @@ const PostBorder = createBorder({
   params: {
     someParam: z.string(),
   },
-  response: z.object({
-    publicData: z.string(),
-  }),
+  responses: [
+    {
+      name: "Some response",
+      status: 200,
+      body: z.object({
+        publicData: z.string(),
+      }),
+    },
+    {
+      name: "Some error",
+      status: 400,
+      body: z.object({
+        error: z.string(),
+      }),
+    },
+    {
+      name: "Some other error",
+      status: 500,
+    }
+  ],
 });
 
 @Controller()
@@ -99,7 +119,7 @@ export class SampleController {
     // { someParam: string; }
     @Param() params: InferParams<typeof PostBorder>
   ): // Will be typed as:
-  // { publicData: string; }
+  // { publicData: string; } | { error: string; }
   Promise<InferResponse<typeof PostBorder>> {
     return {
       publicData: "Hello world",

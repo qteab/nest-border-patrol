@@ -1,14 +1,13 @@
+import { patchNestjsSwagger } from '@abitia/zod-dto';
 import { DynamicModule, FactoryProvider, Global, Module } from "@nestjs/common";
 import {
   APP_FILTER,
-  DiscoveryModule,
-  DiscoveryService,
-  Reflector,
+  DiscoveryModule
 } from "@nestjs/core";
-import { ModuleAsyncOptions, ModuleOptions } from "./types";
+import { BorderPatrolExplorerService } from "./border-patrol-explorer.service";
 import { MODULE_OPTIONS_KEY } from "./border-patrol.constants";
 import { BorderPatrolExceptionFilter } from "./border-patrol.filter";
-import { BorderPatrolExplorerService } from "./border-patrol-explorer.service";
+import { ModuleAsyncOptions, ModuleOptions } from "./types";
 
 @Global()
 @Module({})
@@ -33,6 +32,8 @@ export class BorderPatrolCoreModule {
         return null;
       },
     };
+
+    patchNestjsSwagger();
 
     return {
       imports: [DiscoveryModule],

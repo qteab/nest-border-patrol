@@ -7,7 +7,7 @@ import {
   PipeTransform,
 } from "@nestjs/common";
 import { z, ZodError } from "zod";
-import { BorderConfiguration } from "./types";
+import { Banger, BorderConfiguration } from "./types";
 import { BorderPatrolException } from "./border-patrol.exception";
 
 class QueryOrParamsException extends Error {
@@ -21,7 +21,7 @@ export class BorderPatrolPipe<
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends z.ZodSchema | undefined
+  TResponse extends Banger | undefined
 > implements PipeTransform
 {
   constructor(

@@ -1,15 +1,21 @@
 import { z } from "zod";
 
+export type Banger = Array<{
+  status: number;
+  name: string;
+  body: z.ZodSchema
+}>;
+
 export type BorderConfiguration<
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,
   TParams extends Record<string, z.ZodSchema | undefined> | undefined,
-  TResponse extends z.ZodSchema | undefined
+  TResponse extends Banger | undefined
 > = {
   query: TQuery;
   params: TParams;
   body: TBody;
-  response: TResponse;
+  responses: TResponse;
 };
 
 export type InferBody<TConfiguration> =
@@ -49,10 +55,18 @@ export type InferParams<TConfiguration> =
 
 export type InferResponse<TConfiguration> =
   TConfiguration extends BorderConfiguration<any, any, any, infer TResponse>
-    ? TResponse extends z.ZodSchema
-      ? z.infer<TResponse>
-      : TResponse extends undefined
-      ? any
+    ? TResponse extends Banger
+      ? TResponse[number] extends {
+          body: z.ZodSchema;
+        }
+        ? {
+            [K in keyof TResponse]: TResponse[K] extends {
+              body: z.ZodSchema;
+            }
+              ? z.infer<TResponse[K]["body"]>
+              : never;
+          }[number]
+        : never
       : never
     : never;
 

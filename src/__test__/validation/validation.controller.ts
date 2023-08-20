@@ -20,9 +20,15 @@ export const PostBorder = createBorder({
   params: {
     someParam: z.literal("correct"),
   },
-  response: z.object({
-    publicData: z.string(),
-  }),
+  responses: [
+    {
+      name: "Some response",
+      status: 200,
+      body: z.object({
+        publicData: z.string(),
+      }),
+    }
+  ]
 });
 
 @Controller({ path: "test" })

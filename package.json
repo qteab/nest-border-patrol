@@ -1,6 +1,6 @@
 {
   "name": "@qte/nest-border-patrol",
-  "version": "0.2.4",
+  "version": "0.3.0-alpha.1",
   "description": "",
   "main": "./dist/index",
   "files": [
@@ -46,6 +46,7 @@
     "zod": "^3.21.4"
   },
   "dependencies": {
+    "@abitia/zod-dto": "^0.4.0",
     "@anatine/zod-openapi": "^2.1.0",
     "zod-to-ts": "^1.1.4"
   },
