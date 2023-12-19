@@ -1,6 +1,6 @@
 {
   "name": "@qte/nest-border-patrol",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "",
   "main": "./dist/index",
   "files": [
@@ -41,9 +41,9 @@
     "@nestjs/core": "9.x || 10.x",
     "@nestjs/swagger": "6.x || 7.x",
     "@nestjs/websockets": "9.x || 10.x",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.0",
-    "zod": "^3.21.4"
+    "reflect-metadata": "0.1.x || 0.2.x",
+    "rxjs": "7.8.x",
+    "zod": "3.x.x"
   },
   "dependencies": {
     "@anatine/zod-openapi": "^2.1.0",

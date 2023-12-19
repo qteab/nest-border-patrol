@@ -8,8 +8,8 @@ import fs from "node:fs/promises";
 @Injectable()
 export class BorderPatrolExplorerService implements OnModuleInit {
   private readonly logger = new Logger(BorderPatrolExplorerService.name);
+  private readonly reflector = new Reflector();
   constructor(
-    private readonly reflector: Reflector,
     private readonly discoveryService: DiscoveryService,
     private readonly metadataScanner: MetadataScanner
   ) {}
