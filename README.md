@@ -53,7 +53,8 @@ import { Body, Controller, HttpStatus, Param, Post, Query } from '@nestjs/common
 import { z } from 'zod';
 import {
   HttpBorder,
-  InferFromHttpBorder
+  InferFromHttpBorder,
+  UseHttpBorder
 } from '@qte/nest-border-patrol';
 
 // Create a border
@@ -79,7 +80,7 @@ const border = new HttpBorder({
 @Controller()
 export class SampleController {
   @Post('/:someParam')
-  @UseBorder(border)
+  @UseHttpBorder(border)
   public async post(
     // Will be typed as:
     //  { name: string }
