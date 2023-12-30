@@ -3,15 +3,18 @@ import {
   SetMetadata,
   UseInterceptors,
   UsePipes,
-} from "@nestjs/common";
-import { generateSchema } from "@anatine/zod-openapi";
-import { ApiBody, ApiOkResponse, ApiParam, ApiQuery } from "@nestjs/swagger";
-import { BorderConfiguration } from "./types";
-import { z } from "zod";
-import { BorderPatrolInterceptor } from "./border-patrol.interceptor";
-import { BorderPatrolPipe } from "./border-patrol.pipe";
-import { BORDER_CONFIGURATION_KEY } from "./border-patrol.constants";
+} from '@nestjs/common';
+import { generateSchema } from '@anatine/zod-openapi';
+import { ApiBody, ApiOkResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { BorderConfiguration } from './types';
+import { z } from 'zod';
+import { BorderPatrolInterceptor } from './border-patrol.interceptor';
+import { BorderPatrolPipe } from './border-patrol.pipe';
+import { BORDER_CONFIGURATION_KEY } from './border-patrol.constants';
 
+/**
+ * @deprecated
+ */
 export const UseBorder = <
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,

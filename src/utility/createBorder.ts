@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { BorderConfiguration } from "../types/BorderConfiguration";
 
+/**
+ * @deprecated
+ */
 export const createBorder = <
   TBody extends z.ZodSchema | undefined,
   TQuery extends Record<string, z.ZodSchema | undefined> | undefined,

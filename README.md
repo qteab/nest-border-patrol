@@ -1,6 +1,7 @@
 # Nest Border Patrol
 
-A package for validating NestJS HTTP controller endpoints using zod. Integrates with NestJS swagger.
+A package for validating NestJS HTTP controller endpoints using zod. Integrates
+with NestJS swagger.
 
 ## Getting started
 
@@ -18,95 +19,86 @@ yarn add @qte/nest-border-patrol
 pnpm add @qte/nest-border-patrol
 ```
 
-You also will need the following dependencies if you haven't installed them already
+You also will need the following dependencies if you haven't installed them
+already
 
 - @nestjs/common
 - @nestjs/swagger
 - rxjs
 - zod
 
-Import the `BorderPatrolModule` to your root module.
-
-```typescript
-import { BorderPatrolModule } from "@qte/nest-border-patrol";
-
-@Module({
-  imports: [
-    BorderPatrolModule.forRootAsync({
-      inject: [],
-      useFactory: () => ({}),
-    }),
-  ],
-})
-class AppModule {}
-```
-
 ## Usage
 
-Create a `BorderConfiguration` using the `createBorder()` function. This function requires one argument with the following optional properties.
+Create a `new HttpBorder(options)` instance. Options are the following
 
-- `body` - Any Zod schema
-- `params` - A string record of Zod schemas where the key is the name of your URL parameters
-- `query` - A string record of Zod schemas
-- `response` - Any zod schema
+- `requestBody` (optional) - Any Zod schema
+- `parameters` (optional)
+  - `path` (optional) - A string record of Zod schemas where the key is the name
+    of your URL parameters
+  - `query` (optional) - A string record of Zod schemas
+- `responses` - A record with keys of `HttpStatus` and values of any zod schema
 
-To make use of the newly created `BorderConfiguration` you decorate your controller endpoint with the `@UseBorder()` decorator. This will in turn validate the incoming request and outgoing response with the supplied schemas in the `BorderConfiguration`.
+To make use of the newly created `HttpBorder` you decorate your controller
+endpoint with the `@UseHttpBorder()` decorator. This will in turn validate the
+incoming request and outgoing responses with the supplied schemas in the
+`HttpBorder` constructor.
 
-The `@UseBorder()` decorator will also decorate your controller method with matching `@nestjs/swagger` decorators for generating OpenAPI schemas.
+The `@UseHttpBorder()` decorator will also decorate your controller method with
+matching `@nestjs/swagger` decorators for generating OpenAPI schemas.
 
 ### Example
 
 ```ts
-import { Body, Controller, Param, Post, Query } from "@nestjs/common";
-import { z } from "zod";
+import { Body, Controller, HttpStatus, Param, Post, Query } from '@nestjs/common';
+import { z } from 'zod';
 import {
-  createBorder,
-  InferBody,
-  InferParams,
-  InferQuery,
-  InferResponse,
-  UseBorder,
-} from "@qte/nest-border-patrol";
+  HttpBorder,
+  InferFromHttpBorder
+} from '@qte/nest-border-patrol';
 
-// Create a border configuration
-const PostBorder = createBorder({
-  body: z.object({
+// Create a border
+const border = new HttpBorder({
+  requestBody: z.object({
     name: z.string(),
   }),
-  query: {
-    someQueryParam: z.string().optional(),
-  },
-  params: {
-    someParam: z.string(),
-  },
-  response: z.object({
-    publicData: z.string(),
-  }),
+  parameters: {
+    path:  {
+      someParam: z.string(),
+    },
+    query: {
+      someQueryParam: z.string().optional(),
+    },
+  }
+  responses: {
+    [HttpStatus.CREATED]: z.object({
+      publicData: z.string(),
+    }),
+  }
 });
 
 @Controller()
 export class SampleController {
-  @Post("/:someParam")
-  @UseBorder(PostBorder)
+  @Post('/:someParam')
+  @UseBorder(border)
   public async post(
     // Will be typed as:
     //  { name: string }
-    @Body() body: InferBody<typeof PostBorder>,
+    @Body() body: InferFromHttpBorder<typeof border, 'requestBody'>,
     // Will be typed as:
     // { someQueryParam: string | undefined; }
-    @Query() query: InferQuery<typeof PostBorder>,
+    @Query() query: InferFromHttpBorder<typeof border, 'queryParameters'>,
     // Will be typed as:
     // { someParam: string; }
-    @Param() params: InferParams<typeof PostBorder>
+    @Param() params: InferFromHttpBorder<typeof border, 'pathParameters'>
   ): // Will be typed as:
-  // { publicData: string; }
-  Promise<InferResponse<typeof PostBorder>> {
-    return {
-      publicData: "Hello world",
+  // HttpBorderResponse<HttpStatus.CREATED, { publicData: string; }>
+  Promise<InferFromHttpBorder<typeof border, 'response'>> {
+    return border.createResponse(HttpStatus.CREATED, {
+      publicData: 'Hello world',
       // This property will stripped from the response as
       // it is not defined in the response schema.
-      sensitiveData: "password",
-    };
+      sensitiveData: 'password',
+    });
   }
 }
 ```
@@ -122,4 +114,3 @@ Until the package reaches 1.0.0 all updates may be breaking.
 - Test typings using `// @ts-expect-error`
 - Validate query params as an object (OpenAPI issues)
 - Validate unnamed query params
--

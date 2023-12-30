@@ -1,9 +1,13 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@anatine/zod-openapi':
-    specifier: ^2.1.0
-    version: 2.1.0(openapi3-ts@4.1.2)(zod@3.21.4)
+    specifier: ^2.2.2
+    version: 2.2.2(openapi3-ts@4.2.1)(zod@3.21.4)
   zod-to-ts:
     specifier: ^1.1.4
     version: 1.1.4(typescript@5.0.4)(zod@3.21.4)
@@ -83,13 +87,13 @@ packages:
       '@jridgewell/trace-mapping': 0.3.18
     dev: true
 
-  /@anatine/zod-openapi@2.1.0(openapi3-ts@4.1.2)(zod@3.21.4):
-    resolution: {integrity: sha512-SQML15KBRP8FyV7djAEZiv3iCA0ve++WZ6wW3OBqrABwxszoOcXbtQs27eM13I7FN8GD/9NBSmoh1pgI+fM75A==}
+  /@anatine/zod-openapi@2.2.2(openapi3-ts@4.2.1)(zod@3.21.4):
+    resolution: {integrity: sha512-gqWF4oc3CO3nmAoTUYUUz/SL/9aLC+vFFhNLmkf0F/D+eSTCnwGxsG7kaS07MoCJWsiK8FhxKT6OnhxE6xzkeg==}
     peerDependencies:
       openapi3-ts: ^4.1.2
       zod: ^3.20.0
     dependencies:
-      openapi3-ts: 4.1.2
+      openapi3-ts: 4.2.1
       ts-deepmerge: 6.2.0
       zod: 3.21.4
     dev: false
@@ -2160,8 +2164,8 @@ packages:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -2631,7 +2635,7 @@ packages:
       micromatch: 4.0.5
       walker: 1.0.8
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /jest-leak-detector@29.5.0:
@@ -3187,10 +3191,10 @@ packages:
       mimic-fn: 2.1.0
     dev: true
 
-  /openapi3-ts@4.1.2:
-    resolution: {integrity: sha512-B7gOkwsYMZO7BZXwJzXCuVagym2xhqsrilVvV0dnq2Di4+iLUXKVX9gOK23ZqaAHZOwABXN0QTdW8QnkUTX6DA==}
+  /openapi3-ts@4.2.1:
+    resolution: {integrity: sha512-KL1mKwkZii5ce+tb24KCUmQHyWB/oanG5fzUY35UB+wenWJv4Kr/IWBntpn5R8ODiJcxx13ZDophcpHnLGeIOw==}
     dependencies:
-      yaml: 2.3.1
+      yaml: 2.3.4
     dev: false
 
   /os-filter-obj@2.0.0:
@@ -4025,8 +4029,8 @@ packages:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
     dev: true
 
-  /yaml@2.3.1:
-    resolution: {integrity: sha512-2eHWfjaoXgTBC2jNM1LRef62VQa0umtvRiDSk6HSzW7RvS5YtkabJrwYLLEKWBc8a5U2PTSCs+dJjUTJdlHsWQ==}
+  /yaml@2.3.4:
+    resolution: {integrity: sha512-8aAvwVUSHpfEqTQ4w/KMlf3HcRdt50E5ODIQJBw1fQ5RL34xabzxtUlzTXVqc4rkZsPbvrXKWnABCD7kWSmocA==}
     engines: {node: '>= 14'}
     dev: false
 
