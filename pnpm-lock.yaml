@@ -7,10 +7,10 @@ settings:
 dependencies:
   '@anatine/zod-openapi':
     specifier: ^2.2.2
-    version: 2.2.2(openapi3-ts@4.2.1)(zod@3.21.4)
+    version: 2.2.2(openapi3-ts@4.2.1)(zod@3.22.3)
   zod-to-ts:
     specifier: ^1.1.4
-    version: 1.1.4(typescript@5.0.4)(zod@3.21.4)
+    version: 1.1.4(typescript@5.0.4)(zod@3.22.3)
 
 devDependencies:
   '@nestjs/common':
@@ -75,7 +75,7 @@ devDependencies:
     version: 8.13.0
   zod:
     specifier: ^3.21.4
-    version: 3.21.4
+    version: 3.22.3
 
 packages:
 
@@ -87,7 +87,7 @@ packages:
       '@jridgewell/trace-mapping': 0.3.18
     dev: true
 
-  /@anatine/zod-openapi@2.2.2(openapi3-ts@4.2.1)(zod@3.21.4):
+  /@anatine/zod-openapi@2.2.2(openapi3-ts@4.2.1)(zod@3.22.3):
     resolution: {integrity: sha512-gqWF4oc3CO3nmAoTUYUUz/SL/9aLC+vFFhNLmkf0F/D+eSTCnwGxsG7kaS07MoCJWsiK8FhxKT6OnhxE6xzkeg==}
     peerDependencies:
       openapi3-ts: ^4.1.2
@@ -95,7 +95,7 @@ packages:
     dependencies:
       openapi3-ts: 4.2.1
       ts-deepmerge: 6.2.0
-      zod: 3.21.4
+      zod: 3.22.3
     dev: false
 
   /@babel/code-frame@7.21.4:
@@ -4057,15 +4057,15 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zod-to-ts@1.1.4(typescript@5.0.4)(zod@3.21.4):
+  /zod-to-ts@1.1.4(typescript@5.0.4)(zod@3.22.3):
     resolution: {integrity: sha512-jsCg+pTNxLAdJOfW4ul+SpechdGYEJPPnssSbqWdR2LSIkotT22k+UvqPb1nEHwe/YbEcbUOlZUfGM0npgR+Jg==}
     peerDependencies:
       typescript: ^4.9.4 || ^5.0.2
       zod: ^3
     dependencies:
       typescript: 5.0.4
-      zod: 3.21.4
+      zod: 3.22.3
     dev: false
 
-  /zod@3.21.4:
-    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+  /zod@3.22.3:
+    resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
